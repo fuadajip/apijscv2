@@ -26,9 +26,22 @@ router.post('/upload', upload, (req, res) => {
         }
 
     })
-    var path = req.file.destination + req.file.filename;
-    res.json({ success: true, msg: "File uploaded", path: path });
 
+    var path = req.file.destination + req.file.filename;
+    res.json({ success: true, msg: 'Uploaded and Path Updated', path: path });
+
+})
+
+router.post('/updatepath', (req, res, next) => {
+    var data = {
+        'idsubmission': req.body.idsubmission,
+        'path': req.body.path
+    }
+
+    submissionController.updatePath(data.idsubmission, data.path, (err, data) => {
+        if (err) throw err;
+        res.json({ success: true, msg: data.values.upload });
+    })
 })
 
 router.post('/submit', (req, res, next) => {
@@ -44,7 +57,7 @@ router.post('/submit', (req, res, next) => {
         if (err) {
             res.json({ success: false, msg: 'Check Your Input' });
         } else {
-            res.json({ success: true, msg: "Success Submit Survey" });
+            res.json({ success: true, msg: "Success Submit Survey", idsubmission: data._id });
         }
     })
 });

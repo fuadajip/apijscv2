@@ -40,7 +40,11 @@ app.use('/api/v2/submission', submission);
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/public/index.html');
 });
-
+app.get('/uploads/:id', (req, res) => {
+    var id = req.params.id;
+    res.sendFile(path.resolve('./uploads/' + id));
+    console.log(id);
+});
 app.listen(port, () => {
     console.log('Server running on port ' + port)
 })

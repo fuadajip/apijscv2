@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const formSubmissionSchema = mongoose.Schema({
+    idform: { type: String },
     idlistsurvey: { type: String },
     title: { type: String },
     surveyor: { type: String },
