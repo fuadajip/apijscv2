@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../config/database');
+
 const formController = require('../controllers/form');
 const formModel = require('../models/form');
 
@@ -23,10 +23,9 @@ router.post('/add', (req, res, next) => {
             res.json({ success: true, data: data });
         }
     })
-});
+})
 
-
-router.post('/sructure', (req, res) => {
+router.post('/structure', (req, res) => {
     const idlistsurvey = req.body.idlistsurvey;
     formController.getDetailForm(idlistsurvey, (err, structure) => {
         if (err) throw err;

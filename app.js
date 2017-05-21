@@ -9,6 +9,8 @@ const config = require('./config/database');
 //Importing Routes
 const employee = require('./routes/employees');
 const form = require('./routes/forms');
+const listsurvey = require('./routes/listsurveys');
+const submission = require('./routes/submissions');
 
 const app = express();
 const port = process.env.PORT || 3020;
@@ -24,6 +26,7 @@ mongoose.connection.on('error', (err) => {
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
@@ -31,6 +34,8 @@ require('./config/passport');
 
 app.use('/api/v2/employee', employee);
 app.use('/api/v2/form', form);
+app.use('/api/v2/listsurvey', listsurvey);
+app.use('/api/v2/submission', submission);
 
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/public/index.html');
