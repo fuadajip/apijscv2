@@ -1,14 +1,14 @@
-var employeeModels = require('../models/employee');
+const employeeModels = require('../models/employee');
 const bcrypt = require('bcryptjs');
 
 var employeeControllers = {
     addEmployee: (dataEmployee, callback) => {
         bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(dataEmployee.password, salt, (err, hash0 => {
+            bcrypt.hash(dataEmployee.password, salt, (err, hash) => {
                 if (err) throw err;
                 dataEmployee.password = hash;
                 dataEmployee.save(callback);
-            }))
+            })
         })
     },
     deleteEmployee: (id, callback) => {
@@ -17,6 +17,10 @@ var employeeControllers = {
     },
     getUserByEmail: (email, callback) => {
         const query = { email: email }
+        employeeModels.findOne(query, callback);
+    },
+    getUserById: (id, callback) => {
+        const query = { _id: id }
         employeeModels.findOne(query, callback);
     },
     comparePassword: (candidatePassword, hash, callback) => {
