@@ -77,7 +77,7 @@ router.post('/login', (req, res, next) => {
     })
 });
 
-router.delete('/delete/:id', (req, res, next) => {
+router.delete('/delete/:id', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const id = req.params.id;
 
     employeeController.deleteEmployee(id, (err, user) => {
