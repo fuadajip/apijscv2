@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
-require('./config/passport');
+require('./config/passport')(passport);
 
 app.use('/api/v2/employee', employee);
 app.use('/api/v2/form', form);
@@ -40,11 +40,12 @@ app.use('/api/v2/submission', submission);
 app.get('/', (req, res) => {
     res.sendfile(__dirname + '/public/index.html');
 });
-app.get('/uploads/:id', (req, res) => {
+app.get('/uploads/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
     var id = req.params.id;
     res.sendFile(path.resolve('./uploads/' + id));
     console.log(id);
 });
+
 app.listen(port, () => {
     console.log('Server running on port ' + port)
 })

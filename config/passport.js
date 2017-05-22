@@ -7,9 +7,9 @@ module.exports = function(passport) {
     let opts = {};
     opts.jwtFromRequest = extractJWT.fromAuthHeader();
     opts.secretOrKey = config.secret;
-    passport.use(new JWTStrategy(opts, (jwt_playload, done) => {
+    passport.use(new jwtStrategy(opts, (jwt_playload, done) => {
         console.log(jwt_playload);
-        userController.getUserById(jwt_playload._doc.id, (err, user) => {
+        userController.getUserById(jwt_playload._doc._id, (err, user) => {
             if (err) {
                 return done(err, false);
             }
@@ -20,6 +20,5 @@ module.exports = function(passport) {
             }
         })
 
-        //Something about user controller
     }));
 }
