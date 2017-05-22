@@ -27,14 +27,14 @@ router.post('/add', (req, res, next) => {
 
 router.post('/structure', (req, res) => {
     const idlistsurvey = req.body.idlistsurvey;
-    formController.getDetailForm(idlistsurvey, (err, structure) => {
+    formController.getDetailForm(idlistsurvey, (err, detailStructureForm) => {
         if (err) throw err;
-        if (!structure) {
+        if (!detailStructureForm) {
             return res.json({ success: false, msg: 'Doesn\'t have detail survey form' });
         } else {
             res.json({
                 success: true,
-                structure
+                detailStructureForm
             })
         }
     })
