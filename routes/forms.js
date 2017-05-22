@@ -38,20 +38,20 @@ router.post('/add', (req, res, next) => {
     })
 })
 
-// router.post('/structure', (req, res) => {
-//     const idlistsurvey = req.body.idlistsurvey;
-//     formController.getDetailForm(idlistsurvey, (err, detailStructureForm) => {
-//         if (err) throw err;
-//         if (!detailStructureForm) {
-//             return res.json({ success: false, msg: 'Doesn\'t have detail survey form' });
-//         } else {
-//             res.json({
-//                 success: true,
-//                 detailStructureForm
-//             })
-//         }
-//     })
-// })
+router.post('/structure', (req, res) => {
+    const idlistsurvey = req.body.idlistsurvey;
+    formController.getDetailForm(idlistsurvey, (err, detailStructureForm) => {
+        if (err) throw err;
+        if (!detailStructureForm) {
+            return res.json({ success: false, msg: 'Doesn\'t have detail survey form' });
+        } else {
+            res.json({
+                success: true,
+                detailStructureForm
+            })
+        }
+    })
+})
 
 
 module.exports = router;
