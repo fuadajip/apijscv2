@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     res.send('Invalid Enpoint');
 });
 
-router.get('/all', (req, res, next) => {
+router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     employeeModel.find(function(err, dataEmployee) {
         if (err) res.send(err);
         res.json(dataEmployee);
