@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 const listSurveyController = require('../controllers/listsurvey');
 const listSurveyModel = require('../models/listsurvey');
+
+router.use(passport.initialize());
+require('../config/passport')(passport);
 
 router.get('/', (req, res, next) => {
     res.send("Invalid Enpoint");
@@ -31,7 +35,7 @@ router.post('/all', (req, res) => {
 });
 
 
-router.post('/add', (req, res, next) => {
+router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let addSurvey = new listSurveyModel({
         unitskpd: req.body.unitskpd,
         title: req.body.title,
