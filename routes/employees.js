@@ -7,6 +7,8 @@ const employeeController = require('../controllers/employee');
 const employeeModel = require('../models/employee');
 
 
+router.use(passport.initialize());
+require('../config/passport')(passport);
 
 router.get('/', (req, res) => {
     res.send('Invalid Enpoint');
@@ -19,7 +21,7 @@ router.get('/all', (req, res, next) => {
     })
 });
 
-router.post('/register', (req, res, next) => {
+router.post('/register', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     let newEmployee = new employeeModel({
         name: req.body.name,
         email: req.body.email,
